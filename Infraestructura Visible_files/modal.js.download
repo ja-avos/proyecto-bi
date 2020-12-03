@@ -1,0 +1,34 @@
+/* eslint-env browser */
+function Modal(trigger) {
+	this.trigger = trigger;
+	this.modal = document.querySelector(trigger.dataset.modal);
+	this.dismiss = this.modal.querySelector('.dismiss');
+	this.opened = false;
+	this.registerListener();
+}
+
+Modal.prototype.registerListener = function registerListener() {
+	const self = this;
+	this.trigger.addEventListener('click', function handleClick(event) {
+		event.preventDefault();
+		self.show();
+	});
+	this.dismiss.addEventListener('click', function handleClick() {
+		self.hide();
+	});
+};
+
+Modal.prototype.show = function show() {
+	const self = this;
+	document.body.classList.add('no-scroll');
+	this.modal.classList.remove('hidden');
+	this.modal.addEventListener('click', function handleClick(event) {
+		if (event.target !== this) return;
+		self.hide();
+	});
+};
+
+Modal.prototype.hide = function hide() {
+	document.body.classList.remove('no-scroll');
+	this.modal.classList.add('hidden');
+};

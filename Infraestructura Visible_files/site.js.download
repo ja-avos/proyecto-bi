@@ -1,0 +1,33 @@
+/* eslint-env browser */
+/* eslint-disable no-new */
+const burger = document.querySelector('.burger');
+const sidenav = document.querySelector('.sidenav');
+
+burger.addEventListener('click', function handleClick() {
+	this.classList.toggle('is-active');
+	sidenav.classList.toggle('is-open');
+	document.body.classList.toggle('no-scroll');
+});
+
+const modals = Array.prototype.map.call(
+	document.querySelectorAll('[data-modal]'),
+	function getItem(item) {
+		return item;
+	}
+);
+
+modals.forEach(function createModal(modal) {
+	// eslint-disable-next-line no-undef
+	new Modal(modal);
+});
+
+// eslint-disable-next-line no-unused-vars
+function search(str) {
+	document.querySelectorAll('.word-title').forEach(function showWord(word) {
+		if (word.textContent.toLowerCase().includes(str.toLowerCase())) {
+			word.parentNode.classList.remove('hidden');
+		} else {
+			word.parentNode.classList.add('hidden');
+		}
+	});
+}
